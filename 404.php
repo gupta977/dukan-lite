@@ -1,36 +1,43 @@
-<?php get_header(); ?>
+<?php
 
-	<div id="wrap" class="container clearfix">
-		
-		<section id="content" class="primary" role="main">
+/**
+ * The template for displaying 404 pages (not found)
+ *
+ * @link https://codex.wordpress.org/Creating_an_Error_404_Page
+ *
+ * @package Dukan_Lite
+ */
 
-			<div class="type-page">
-			
-				<h2 class="page-title"><?php _e('404: Page not found', 'dukan-lite'); ?></h2>
-				
-				<div class="entry">
-					<p><?php _e('It looks like nothing was found at this location. Maybe try a search or one of the links below?', 'dukan-lite'); ?></p>
-					
-					<?php get_search_form(); ?>
+get_header();
+?>
 
-					<?php the_widget( 'WP_Widget_Recent_Posts' ); ?>
+<main id="primary" class="site-main container">
+	<div class="row">
+		<section class="error-404 not-found col-md-12">
+			<header class="page-header">
+				<h1 class="page-title"><?php esc_html_e('Oops! That page can&rsquo;t be found.', 'dukan-lite'); ?></h1>
+			</header><!-- .page-header -->
 
-					<?php the_widget( 'WP_Widget_Archives', 'dropdown=1' ); ?>
-					
-					<?php the_widget( 'WP_Widget_Categories', 'dropdown=1' ); ?>
+			<div class="page-content">
+				<p><?php esc_html_e('It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'dukan-lite'); ?></p>
 
-					<?php the_widget( 'WP_Widget_Tag_Cloud' ); ?>
-					
-					<?php the_widget( 'WP_Widget_Pages' ); ?>
-					
-				</div>
-				
-			</div>
+				<?php
+				get_search_form();
+				?>
 
-		</section>
-		
-		<?php get_sidebar(); ?>
-		
-	</div>
+				<?php
+				/* translators: %1$s: smiley */
+				$dukan_lite_archive_content = '<p>' . sprintf(esc_html__('Try looking in the monthly archives. %1$s', 'dukan-lite'), convert_smilies(':)')) . '</p>';
+				the_widget('WP_Widget_Archives', 'dropdown=1', "after_title=</h2>$dukan_lite_archive_content");
 
-<?php get_footer(); ?>
+				the_widget('WP_Widget_Tag_Cloud');
+				?>
+
+			</div><!-- .page-content -->
+		</section><!-- .error-404 -->
+	</div><!-- row -->
+
+</main><!-- #main -->
+
+<?php
+get_footer();

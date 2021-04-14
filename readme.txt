@@ -1,106 +1,71 @@
-dukan Lite WordPress Theme, Copyright 2017 ODude.com
-dukan Lite is distributed under the terms of the GNU GPL
+=== Dukan Lite ===
 
-===================================
-Thanks for Downloading dukan Lite
-===================================
+Contributors: odude
+Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
+Requires at least: 4.5
+Tested up to: 5.7
+Requires PHP: 5.6
+Stable tag: 1.0.0
+License: GNU General Public License v2 or later
+License URI: LICENSE
 
-Thank you for downloading my theme. 
-If you have any questions that are beyond the scope of this help file, 
-please visit odude.com. Thanks so much!
+A starter theme called Dukan Lite.
 
-It is completely optional, but if you like the Theme I would appreciate it if 
-you keep the credit link at the bottom.
+== Description ==
 
------------------------------------
-Table of Contents
+Dukan Lite is a beautiful WordPress Theme design specially for bloggers. Providing all the loved featured by bloggers like stiky post, post formats like audio, video, gallery, Image, Easy access to social share, simple layout for blog. You can check demo at https://demo.odude.com/dukan-lite.
 
-    * A) Requirements
-    * B) Installation
-    * C) Theme Options
-    * D) Theme Documentation
-    * E) Page Templates
-    * F) Theme License
-	* G) Licenses of bundled resources
------------------------------------
+== Installation ==
 
-===================================
-A) Requirements
-===================================
+1. In your admin panel, go to Appearance > Themes and click the Add New button.
+2. Click Upload Theme and Choose File, then select the theme's .zip file. Click Install Now.
+3. Click Activate to use your new theme right away.
 
-The theme has been tested on all major browsers including Firefox, Opera, Chrome,  
-Internet Explorer and Safari. Your browser should have JavaScript enabled to make this theme work!
-For example the DropDown Navigation need Javascript to work.
+== Frequently Asked Questions ==
 
-The theme works on the latest Wordpress version without any problems. Previous versions have not been tested
-and are not supported. I suggest to update your wordpress installation, especially due to security flaws.
+= Does this theme support any plugins? =
 
-===================================
-B) Installation
-===================================
+* Dukan Lite includes support for Infinite Scroll in Jetpack.
+* ODude theme support for Contact Form 7
+* ODude theme support for Simple Share Buttons Adder
+* ODude theme support for Newsletter
+* ODude theme support for Slider and Carousel Plus Widget for Social Media
 
-   1. Automatic Installation
-      Go to WP-Admin > Appearance > Themes > Add New > Upload Theme and choose the theme zip folder.
+== Changelog ==
 
-   2. Manual Installation
-      Upload the theme files to your wordpress theme folder wp-content/themes and activate the theme in
-      your wordpress admin panel. That's it!
+= 2.0 =
+Everything is created from scratch.
 
-To find out more about installing WordPress themes please also see the WordPress documentation.
 
-===================================
-C) Theme Options
-===================================
+== License ==
+Unless otherwise specified, all the theme files, scripts and images are licensed under GNU General Public License  v2 or later
+License: GNU General Public License v2 or later
+License URI: http://www.opensource.org/licenses/gpl-license.php GPL v2 (or later)
+Dukan Lite WordPress Theme, Copyright 2018 odude
+Dukan Lite is distributed under the terms of the GNU GPL.
 
-dukan Lite supports the awesome Theme Customizer for all theme settings. 
-Go to WP-Admin > Appearance > Customize to open the Customizer.
+Screenshot Image
+* License: CC0 Public Domain
+* License url: https://creativecommons.org/publicdomain/zero/1.0/deed.en
+* Image urls
+https://pxhere.com/en/photo/1372926
+https://pxhere.com/en/photo/948941
+https://pxhere.com/en/photo/17401
+https://pxhere.com/en/photo/73788
+https://pxhere.com/en/photo/229
+https://pxhere.com/en/photo/852161
 
-===================================
-D) Theme Documentation
-===================================
+Font awesome
+	*Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
+ 	* License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
 
-Need any help to setup and configure this theme? We got you covered with an extensive theme documentation on our website.
-http://odude.com/themes/dukan/
-===================================
-E) Page Templates
-===================================
+Bootstrap (v4.0.0):
+	License: MIT license
+	License url: https://v4-alpha.getbootstrap.com/about/license/
+	Url: https://getbootstrap.com/
 
-I have included a few page templates for advanced content presentation.
 
-	1. Fullwidth Template 
-	This template shows a static page without the blog sidebar
+== Credits ==
 
-===================================
-F) Theme License
-===================================
-
-dukan Lite is released under the GNU general public license. 
-That means you can use this theme on all of your websites - for personal or commercial purposes!
-
-===================================
-G) Licenses of bundled resources & Images
-===================================
-
-	1. Genericons, Copyright 2014 Automattic, Inc.
-	The theme uses the Genericons icon font for Postmeta Icons and Social Icons, which is licensed under GNU GPL.
-	Source URL: http://genericons.com
-	License of Genericon Icon font: http://www.gnu.org/licenses/gpl.html
-
-	2. Featured Content class, Copyright 2014 Twenty Fourteen theme
-	dukan Lite uses the Featured Content class to feature posts on the homepage
-	License of Twenty Fourteen: http://www.gnu.org/licenses/gpl.html
-
-	4. Fonts
-	Default Fonts used in the theme are from the Google Font API and are GPL-compatible licensed (SIL Open Font License (OFL))
-
-	5. HTML5 Shiv @afarkas @jdalton @jon_neal @rem | MIT/GPL2 Licensed
-
-	6. jQuery navigation.js (Thomas W)
-
-	7. Image: screenshot.png Resource Link: http://odude.com licensed under GNU GPL
-
-===================================
-Enjoy!
-===================================
-
-Once again, thank you so much for downloading this theme. 
+* Based on Underscores https://underscores.me/, (C) 2012-2020 Automattic, Inc., [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html)
+* normalize.css https://necolas.github.io/normalize.css/, (C) 2012-2018 Nicolas Gallagher and Jonathan Neal, [MIT](https://opensource.org/licenses/MIT)

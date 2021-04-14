@@ -1,148 +1,101 @@
-<!DOCTYPE html><!-- HTML 5 -->
+<?php
+
+/**
+ * The header for our theme
+ *
+ * This is the template that displays all of the <head> section and everything up until <div id="content">
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
+ *
+ * @package Dukan_Lite
+ */
+
+?>
+<!doctype html>
 <html <?php language_attributes(); ?>>
 
 <head>
-<meta charset="<?php bloginfo( 'charset' ); ?>" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="profile" href="http://gmpg.org/xfn/11" />
+	<meta charset="<?php bloginfo('charset'); ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
 
-
-<?php if ( is_singular() && pings_open( get_queried_object() ) ) : ?>
-	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-<?php endif; ?>
-
-
-<?php wp_head(); ?>
+	<?php wp_head(); ?>
 </head>
+
 <body <?php body_class(); ?>>
+	<?php wp_body_open(); ?>
+	<div id="page" class="hfeed site">
+		<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e('Skip to content', 'dukan-lite'); ?></a>
+		<div class="container">
+			<header id="masthead" class="site-header row">
+				<div id="site-branding-wrapper" class="col-lg-3 col-md-4 col-sm-4 col-sm-4">
 
-<?php // Get Theme Options from Database
-	$theme_options = dukan_theme_options();
-?>
+					<div id="site-branding">
+						<div class="site-logo">
+							<?php the_custom_logo(); ?>
+						</div>
+						<div class="site-title" itemprop="headline">
+							<a href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a>
+						</div>
+						<?php
+						$dukan_lite_description = get_bloginfo('description', 'display');
+						if ($dukan_lite_description || is_customize_preview()) :
+						?>
+							<div class="site-description" itemprop="description">
+								<p><?php bloginfo('description'); ?></p>
+							</div>
+						<?php endif; ?>
+					</div><!-- .site-branding -->
+				</div><!-- .site branding wrapper -->
 
-<div id="wrapper" class="hfeed">
-
-	<div id="header-wrap">
-	
-		<div id="topheader-wrap">
-			
-			<div id="topheader" class="container clearfix">
-			
-				<?php // Display Search Form
-				if ( isset($theme_options['header_search']) and $theme_options['header_search'] == true ) : ?>
-
-					<div id="header-search">
-						<?php get_search_form(true); ?>
+				<nav id="site-navigation" class="main-navigation col-lg-9 col-md-8 col-sm-8 col-sm-8">
+					<div class="toggle-container visible-xs visible-sm hidden-md hidden-lg">
+						<?php // if our page has no banner
+						if (!is_active_sidebar('banner')) :
+							echo '<button class="menu-toggle nobanner">', esc_html_e('Menu', 'dukan-lite'), '</button>';
+						else : // if our page has a banner
+							echo '<button class="menu-toggle">', esc_html_e('Menu', 'dukan-lite'), '</button>';
+						endif;
+						?>
 					</div>
 
-				<?php endif; ?>
-				
-				<?php // Display Top Navigation Menu
-				if ( has_nav_menu( 'secondary' ) ) : ?>
-				
-					<nav id="topnav" class="clearfix" role="navigation">
-						<?php 
-					
-						// Display Top Navigation
-							wp_nav_menu( array(
-								'theme_location' => 'secondary', 
-								'container' => false, 
-								'menu_id' => 'topnav-menu', 
-								'echo' => true, 
-								'fallback_cb' => '',
-								'depth' => 1)
-							);
-						?>
-					</nav>
-					
-				<?php endif; ?>
-				
-			</div>
-			
+					<?php
+					if (!is_active_sidebar('banner')) : // if our page has no banner
+						//wp_nav_menu( array( 'theme_location' => 'primary', 'menu_class' => 'nav-menu nobanner' ) );
+						if (has_nav_menu('primary')) {
+							wp_nav_menu(array('theme_location' => 'primary', 'menu_class' => 'nav-menu nobanner'));
+						} else {
+							wp_nav_menu(array('container' => '', 'menu_class' => 'nobanner', 'title_li' => ''));
+						}
+					else : // if our page has a banner
+						//wp_nav_menu( array( 'theme_location' => 'primary', 'menu_class' => 'nav-menu' ) );
+						if (has_nav_menu('primary')) {
+							wp_nav_menu(array('theme_location' => 'primary', 'menu_class' => 'nav-menu'));
+						} else {
+							wp_nav_menu(array('container' => '', 'menu_class' => '', 'title_li' => ''));
+						}
+					endif;
+					?>
+					<?php
+					echo '<div class="dukan_lite_search_box">';
+					get_search_form();
+					echo '</div>';
+					?>
+				</nav><!-- #site-navigation -->
+
+			</header><!-- #masthead -->
+		</div><!-- .container -->
+
+		<div id="banner-wrapper">
+			<?php // if our page has no banner
+			if (!is_active_sidebar('banner')) :
+				echo '<div id="no-banner"></div>';
+			else : // if our page has a banner
+				get_sidebar('banner');
+			endif;
+			?>
 		</div>
-	
-		<header id="header" class="container clearfix" role="banner">
 
-			<div id="logo">
-			<?php
-			if ( get_theme_mod( 'custom_logo' ) )
-			{
-				//echo esc_url( get_theme_mod( 'themeslug_banner' )
-				$custom_logo_id = esc_attr(get_theme_mod( 'custom_logo' ));
-				$image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
-				
-				?>
-				 <a href='<?php echo esc_url( home_url( '/' ) ); ?>' title='<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>' rel='home'><img src='<?php echo esc_url( $image[0] ); ?>'></a>
-				 
-				
-				 
-				 
-				<?php
-			}
-			else
-			{
-				?>
-			
-				<?php do_action('dukan_site_title'); ?>
-				
-				<?php // Display Tagline on header if activated
-				if ( isset($theme_options['header_tagline']) and $theme_options['header_tagline'] == true ) : ?>			
-					<h2 class="site-description"><?php bloginfo('description'); ?></h2>
-				<?php endif; 
-			}	
-			?>
-			
-			</div>
-			
-			<div id="header-content" class="clearfix">
-			
-				<div id="dukan_banner" class="clearfix">
-						
-						
-							<?php
-			// Check if Top Header has widgets
-			if( is_active_sidebar('topheader') )
-			{
-			
-				dynamic_sidebar('topheader');
-			}
-			
-		
-			 ?>
-				</div>
-				
-			
-			
-			</div>
+		<div id="content" class="site-content clearfix">
 
-		</header>
-	
-	</div>
-	
-	<div id="mainnav-wrap">
-		
-		<nav id="mainnav" class="container clearfix" role="navigation">
-	
-			<?php // Display Main Navigation
-			if(is_category())
-			{
-
-				//$wp_query = NULL;
-				//$wp_query = new WP_Query(array('post_type' => 'post','page'));
-
-				}
-				wp_nav_menu( array(
-					'theme_location' => 'primary', 
-					'container' => false, 
-					'menu_id' => 'mainnav-menu', 
-					'echo' => true, 
-					'fallback_cb' => 'dukan_default_menu')
-				);
-			?>
-		</nav>
-		
-	</div>
-	
-	<?php // Display Custom Header Image
-		dukan_display_custom_header(); ?>
-		
+			<?php get_sidebar('feature-top'); ?>

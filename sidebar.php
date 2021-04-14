@@ -1,15 +1,18 @@
+<?php
 
-	<section id="sidebar" class="secondary clearfix" role="complementary">
+/**
+ * The sidebar containing the main widget area
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
+ *
+ * @package Dukan_Lite
+ */
 
-		<?php
-			// Check if Sidebar has widgets
-			if( is_active_sidebar('sidebar') )
-			{
-			
-				dynamic_sidebar('sidebar');
-			}
-			
-		
-			 ?>
+if (!is_active_sidebar('sidebar-1')) {
+	return;
+}
+?>
 
-	</section>
+<aside id="secondary" class="widget-area">
+	<?php dynamic_sidebar('sidebar-1'); ?>
+</aside><!-- #secondary -->

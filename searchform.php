@@ -1,11 +1,16 @@
+<?php
 
-	<form role="search" method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-		<label>
-			<span class="screen-reader-text"><?php _ex( 'Search for:', 'label', 'dukan-lite' ); ?></span>
-			<input type="search" class="search-field" placeholder="<?php echo esc_attr_x( 'Search &hellip;', 'placeholder', 'dukan-lite' ); ?>" value="<?php echo get_search_query(); ?>" name="s">
-		</label>
-		<button type="submit" class="search-submit">
-			<span class="genericon-search"></span>
-		</button>
-	</form>
+/**
+ * The template for displaying search forms 
+ * @package Dukan Lite
+ */
+?>
 
+
+<form method="get" class="search-form" action="<?php echo esc_url(home_url('/')); ?>">
+	<span class="screen-reader-text"><?php _x('Search for:', 'Screen reader text', 'dukan-lite'); ?></span>
+	<div class="form-group">
+		<input type="text" class="form-control" value="<?php echo esc_attr(get_search_query()); ?>" name="s" placeholder="<?php _x('Enter search words', 'Search field placeholder', 'dukan-lite'); ?>">
+		<button class="button-search" type="submit"><i class="fa fa-search"></i></button>
+	</div>
+</form>

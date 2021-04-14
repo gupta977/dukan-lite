@@ -1,37 +1,33 @@
-	
-	<?php // Get Theme Options from Database
-		$theme_options = dukan_theme_options();
-	?>	
+<?php
 
-	<div id="footer-bg">
-	
-		<?php do_action('dukan_before_footer'); ?>
-		
-		<div id="footer-wrap">
-		
-			<footer id="footer" class="container clearfix" role="contentinfo">
-				
-				<?php // Display Social Icons
-				if ( isset($theme_options['footer_icons']) and $theme_options['footer_icons'] == true ) : ?>
+/**
+ * The template for displaying the footer
+ *
+ * Contains the closing of the #content div and all content after.
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
+ *
+ * @package Dukan_Lite
+ */
 
-					<div id="footer-social-icons" class="social-icons-wrap clearfix">
-						<?php dukan_display_social_icons(); ?>
-					</div>
+?>
+<?php get_sidebar('feature-bottom'); ?>
 
-				<?php endif; ?>
-				
-				<div id="footer-text">
-					<?php do_action('dukan_footer_text'); ?>
-				</div>
-				
-			</footer>
-			
-		</div>
-		
-	</div>
-	
-</div><!-- end #wrapper -->
+
+</div> <!-- #content -->
+<?php get_sidebar('bottom'); ?>
+<footer id="colophon" class="site-footer">
+	<?php get_sidebar('footer'); ?>
+	<div class="site-info">
+		<?php
+		echo get_theme_mod('dukan_copyright', 'ODude.com');
+		?>
+	</div><!-- .site-info -->
+</footer><!-- #colophon -->
+</div><!-- #page -->
 
 <?php wp_footer(); ?>
+
 </body>
+
 </html>

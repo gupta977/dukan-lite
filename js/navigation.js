@@ -1,125 +1,99 @@
-/*! jQuery navigation.js
-  Adds toggle icon for mobile navigation and dropdown animations for widescreen navigation
-  Author: Thomas W
-*/
+/**
+ * File navigation.js.
+ *
+ * Handles toggling the navigation menu for small screens and enables TAB key
+ * navigation support for dropdown menus.
+ */
+( function() {
+	const siteNavigation = document.getElementById( 'site-navigation' );
 
-(function($) {
-	
-	/**--------------------------------------------------------------
-	# Responsive Navigation for WordPress menus
-	--------------------------------------------------------------*/
-	$.fn.responsiveMenu = function( options ) {
-	
-		if (options === undefined) options = {};
-		
-		/* Set Defaults */
-		var defaults = {
-			menuID: "menu",
-			toggleClass: "menu-toggle",
-			toggleText: "",
-			maxWidth: "60em"
-		};
-		
-		/* Set Variables */
-		var vars = $.extend({}, defaults, options),
-			menuID = vars.menuID,
-			toggleID = (vars.toggleID) ? vars.toggleID : vars.toggleClass,
-			toggleClass = vars.toggleClass,
-			toggleText = vars.toggleText,
-			maxWidth = vars.maxWidth,
-			$this = $(this),
-			$menu = $('#' + menuID);
-		
+	// Return early if the navigation don't exist.
+	if ( ! siteNavigation ) {
+		return;
+	}
 
-		/*********************
-		* Desktop Navigation *
-		**********************/				
-		
-		/* Set and reset dropdown animations based on screen size */
-		if(typeof matchMedia == 'function') {
-			var mq = window.matchMedia('(max-width: ' + maxWidth + ')');
-			mq.addListener(widthChange);
-			widthChange(mq);
+	const button = siteNavigation.getElementsByTagName( 'button' )[ 0 ];
+
+	// Return early if the button don't exist.
+	if ( 'undefined' === typeof button ) {
+		return;
+	}
+
+	const menu = siteNavigation.getElementsByTagName( 'ul' )[ 0 ];
+
+	// Hide menu toggle button if menu is empty and return early.
+	if ( 'undefined' === typeof menu ) {
+		button.style.display = 'none';
+		return;
+	}
+
+	if ( ! menu.classList.contains( 'nav-menu' ) ) {
+		menu.classList.add( 'nav-menu' );
+	}
+
+	// Toggle the .toggled class and the aria-expanded value each time the button is clicked.
+	button.addEventListener( 'click', function() {
+		siteNavigation.classList.toggle( 'toggled' );
+
+		if ( button.getAttribute( 'aria-expanded' ) === 'true' ) {
+			button.setAttribute( 'aria-expanded', 'false' );
+		} else {
+			button.setAttribute( 'aria-expanded', 'true' );
 		}
-		function widthChange(mq) {
-			
-			if (mq.matches) {
-		
-				/* Reset desktop navigation menu dropdown animation on smaller screens */
-				$menu.find('ul').css({display: 'block'});
-				$menu.find('li ul').css({visibility: 'visible', display: 'block'});
-				$menu.find('li').unbind('mouseenter mouseleave');
-				
-				$menu.find('li.menu-item-has-children ul').each( function () {
-					$( this ).hide();
-					$(this).parent().find('.submenu-dropdown-toggle').removeClass('active');
-				} );
-				
-			} else {
-				
-				/* Add dropdown animation for desktop navigation menu */
-				$menu.find('ul').css({display: 'none'});
-				$menu.find('li').hover(function(){
-					$(this).find('ul:first').css({visibility: 'visible',display: 'none'}).slideDown(300);
-				},function(){
-					$(this).find('ul:first').css({visibility: 'hidden'});
-				});
-				
-			}
-			
-		}
-		
-		
-		/********************
-		* Mobile Navigation *
-		*********************/	
-		
-		/* Add Menu Toggle Button for mobile navigation */
-		$this.before('<button id=\"' + toggleID + '\" class=\"' + toggleClass + '\">' + toggleText + '</button>');
-
-		/* Add dropdown toggle for submenus on mobile navigation */
-		$menu.find('li.menu-item-has-children').prepend('<span class=\"submenu-dropdown-toggle\"></span>');
-		
-		/* Add dropdown slide animation for mobile devices */
-		$('#' + toggleID).on('click', function(){
-			$menu.slideToggle();
-			$(this).toggleClass('active');
-		});
-		
-		/* Add dropdown animation for submenus on mobile navigation */
-		$menu.find('li.menu-item-has-children ul').each( function () {
-			$( this ).hide();
-		} );
-		$menu.find('.submenu-dropdown-toggle').on('click', function(){
-			$(this).parent().find('ul:first').slideToggle();
-			$(this).toggleClass('active');
-		});
-
-	};
-	
-	
-	/**--------------------------------------------------------------
-	# Setup Navigation Menus
-	--------------------------------------------------------------*/
-	$( document ).ready( function() {
-		
-		/* Setup Main Navigation */
-		$("#mainnav").responsiveMenu({
-			menuID: "mainnav-menu",
-			toggleID: "mainnav-toggle",
-			toggleClass: "nav-toggle",
-			toggleText: dukan_navigation_params.menuTitle,
-			maxWidth: "60em"
-		});
-		
-		/* Setup Top Navigation */
-		$("#topnav").responsiveMenu({
-			menuID: "topnav-menu",
-			toggleID: "topnav-toggle",
-			toggleClass: "nav-toggle",
-			maxWidth: "60em"
-		});
-		
 	} );
 
-}(jQuery));
+	// Remove the .toggled class and set aria-expanded to false when the user clicks outside the navigation.
+	document.addEventListener( 'click', function( event ) {
+		const isClickInside = siteNavigation.contains( event.target );
+
+		if ( ! isClickInside ) {
+			siteNavigation.classList.remove( 'toggled' );
+			button.setAttribute( 'aria-expanded', 'false' );
+		}
+	} );
+
+	// Get all the link elements within the menu.
+	const links = menu.getElementsByTagName( 'a' );
+
+	// Get all the link elements with children within the menu.
+	const linksWithChildren = menu.querySelectorAll( '.menu-item-has-children > a, .page_item_has_children > a' );
+
+	// Toggle focus each time a menu link is focused or blurred.
+	for ( const link of links ) {
+		link.addEventListener( 'focus', toggleFocus, true );
+		link.addEventListener( 'blur', toggleFocus, true );
+	}
+
+	// Toggle focus each time a menu link with children receive a touch event.
+	for ( const link of linksWithChildren ) {
+		link.addEventListener( 'touchstart', toggleFocus, false );
+	}
+
+	/**
+	 * Sets or removes .focus class on an element.
+	 */
+	function toggleFocus() {
+		if ( event.type === 'focus' || event.type === 'blur' ) {
+			let self = this;
+			// Move up through the ancestors of the current link until we hit .nav-menu.
+			while ( ! self.classList.contains( 'nav-menu' ) ) {
+				// On li elements toggle the class .focus.
+				if ( 'li' === self.tagName.toLowerCase() ) {
+					self.classList.toggle( 'focus' );
+				}
+				self = self.parentNode;
+			}
+		}
+
+		if ( event.type === 'touchstart' ) {
+			const menuItem = this.parentNode;
+			event.preventDefault();
+			for ( const link of menuItem.parentNode.children ) {
+				if ( menuItem !== link ) {
+					link.classList.remove( 'focus' );
+				}
+			}
+			menuItem.classList.toggle( 'focus' );
+		}
+	}
+}() );
